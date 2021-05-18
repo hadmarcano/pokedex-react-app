@@ -10,6 +10,10 @@ const PokemonContextProvider = ({ children }) => {
 
   //Life Cycle
   useEffect(() => {
+    // getPokemonNameToSelect();
+  }, []);
+
+  useEffect(() => {
     getPokemonDetails(currentQPokemon);
   }, [currentQPokemon]);
 
@@ -33,7 +37,11 @@ const PokemonContextProvider = ({ children }) => {
 
   return (
     <CharacterContext.Provider
-      value={{ changeCurrentQPokemon, pokemonDetail, currentQPokemon }}
+      value={{
+        changeCurrentQPokemon,
+        pokemonDetail,
+        currentQPokemon,
+      }}
     >
       {children}
     </CharacterContext.Provider>
