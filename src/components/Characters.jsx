@@ -16,6 +16,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { getPokemonNames } from "../constants/index";
 import { CharacterContext } from "../context/CharacterContext";
 import {
@@ -25,6 +26,8 @@ import {
   tableCellStyle,
   tableRowStyle,
 } from "../styles/components/characters";
+
+// STYLES
 
 const StyledTableCell = withStyles(tableCellStyle)(TableCell);
 
@@ -37,28 +40,49 @@ const BorderLinearProgress = withStyles(borderLinearStyle)(LinearProgress);
 const useStyles = makeStyles(mainStyles);
 
 const Characters = () => {
-  const { changeCurrentQPokemon, pokemonDetail } = useContext(CharacterContext);
+  const {
+    changeCurrentQPokemon,
+    pokemonDetail,
+    doneFetchPokemon,
+    changeDoneFetchPokemon,
+  } = useContext(CharacterContext);
   const [loader, setLoader] = useState(getPokemonNames());
+  const [prev, setPrev] = useState("");
+  const [next, setNext] = useState("");
   const [namesToSelect, setNamesToSelect] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
     getPokemonNamesToSelect();
-  }, []);
+  }, [loader]);
 
   const getPokemonNamesToSelect = () => {
     fetch(loader)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setLoader(data.next);
+        setNext(data.next);
+        setPrev(data.previous);
         setNamesToSelect(data.results);
+        changeDoneFetchPokemon(true);
       });
   };
 
   const onClickView = (name) => {
     console.log(name);
     changeCurrentQPokemon(name);
+  };
+
+  const onNext = () => {
+    console.log(next);
+    changeDoneFetchPokemon(false);
+    setLoader(next);
+  };
+
+  const onPrev = () => {
+    console.log(prev);
+    changeDoneFetchPokemon(false);
+    setLoader(prev);
   };
 
   return (
@@ -91,45 +115,61 @@ const Characters = () => {
                               </StyledTableCell>
                             </TableRow>
                           </TableHead>
-                          <TableBody>
-                            {namesToSelect.map((row) => (
-                              <StyledTableRow key={row.name}>
-                                <StyledTableCell component="th" scope="row">
-                                  {row.name}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">
-                                  <Button
-                                    size="small"
-                                    variant="contained"
-                                    onClick={() => {
-                                      onClickView(row.name);
-                                    }}
-                                    color="primary"
-                                  >
-                                    view
-                                  </Button>
-                                </StyledTableCell>
-                              </StyledTableRow>
-                            ))}
-                          </TableBody>
+                          {doneFetchPokemon ? (
+                            <TableBody>
+                              {namesToSelect.map((row) => (
+                                <StyledTableRow key={row.name}>
+                                  <StyledTableCell component="th" scope="row">
+                                    {row.name}
+                                  </StyledTableCell>
+                                  <StyledTableCell align="right">
+                                    <Button
+                                      size="small"
+                                      variant="contained"
+                                      onClick={() => {
+                                        onClickView(row.name);
+                                      }}
+                                      color="primary"
+                                    >
+                                      view
+                                    </Button>
+                                  </StyledTableCell>
+                                </StyledTableRow>
+                              ))}
+                            </TableBody>
+                          ) : (
+                            <div className={classes.circularStyles}>
+                              <div className={classes.circularItem}>
+                                <CircularProgress />
+                              </div>
+                            </div>
+                          )}
                         </Table>
                       </TableContainer>
                       <br />
                       <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
-                          <ColorButton
-                            size="small"
-                            variant="contained"
-                            color="primary"
-                          >
-                            previous
-                          </ColorButton>
+                          {prev !== null && (
+                            <ColorButton
+                              size="small"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                onPrev();
+                              }}
+                            >
+                              previous
+                            </ColorButton>
+                          )}
                         </Grid>
                         <Grid item xs={12} sm={6}>
                           <ColorButton
                             color="primary"
                             size="small"
                             variant="contained"
+                            onClick={() => {
+                              onNext();
+                            }}
                           >
                             Next
                           </ColorButton>
@@ -205,7 +245,6 @@ const Characters = () => {
                             pokemonDetail.abilities.map((ability) => {
                               return (
                                 <Grid item xs={12} sm={6}>
-                                  {/* <Paper className={classes.paper_abilities}> */}
                                   <div>
                                     <div className={classes.root}>
                                       <Chip
@@ -219,7 +258,6 @@ const Characters = () => {
                                       />
                                     </div>
                                   </div>
-                                  {/* </Paper> */}
                                 </Grid>
                               );
                             })}
@@ -249,24 +287,6 @@ const Characters = () => {
             </Grid>
           </Paper>
         </Grid>
-        {/* <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>xs=12 sm=6</Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>xs=12 sm=6</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
-        </Grid> */}
       </Grid>
     </div>
   );

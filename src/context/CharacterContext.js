@@ -9,9 +9,6 @@ const PokemonContextProvider = ({ children }) => {
   const [currentQPokemon, setCurrentQPokemon] = useState("");
 
   //Life Cycle
-  useEffect(() => {
-    // getPokemonNameToSelect();
-  }, []);
 
   useEffect(() => {
     getPokemonDetails(currentQPokemon);
@@ -35,12 +32,18 @@ const PokemonContextProvider = ({ children }) => {
     setCurrentQPokemon(pokemon);
   };
 
+  const changeDoneFetchPokemon = (state) => {
+    setDoneFetchPokemon(state);
+  };
+
   return (
     <CharacterContext.Provider
       value={{
         changeCurrentQPokemon,
         pokemonDetail,
         currentQPokemon,
+        doneFetchPokemon,
+        changeDoneFetchPokemon,
       }}
     >
       {children}
