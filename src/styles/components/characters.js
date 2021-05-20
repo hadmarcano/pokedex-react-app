@@ -4,16 +4,32 @@ export const mainStyles = (theme) => ({
   root: {
     flexGrow: 1,
   },
+
   paper_main: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
     backgroundColor: "#616161",
+    overflow: "auto",
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    height: "95%",
+  },
+
+  "@media (max-width: 780px)": {
+    container_main: {
+      display: "flex",
+      flexDirection: "column-reverse",
+    },
+    content_get_out: {
+      display: "none",
+    },
+    paper: {
+      width: "auto",
+    },
   },
   paper_abilities: {
     padding: theme.spacing(2),

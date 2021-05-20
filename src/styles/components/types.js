@@ -4,16 +4,35 @@ export const mainStyles = (theme) => ({
   root: {
     flexGrow: 1,
   },
+  "@media (max-width: 780px)": {
+    container_main: {
+      display: "flex",
+      flexDirection: "column-reverse",
+    },
+  },
+
   paper_main: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
     backgroundColor: "#616161",
+    // overflow: "auto",
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    height: "auto",
+  },
+  // "@media (max-width: 780px)": {
+  //   paper: {
+  //     width: "auto",
+  //   },
+  // },
+  "@media (max-width: 780px)": {
+    content_get_out: {
+      display: "none",
+    },
   },
   paper_abilities: {
     padding: theme.spacing(2),
@@ -104,5 +123,62 @@ export const mainStyles = (theme) => ({
   },
   table: {
     minWidth: "auto",
+  },
+  circulaStyles: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  circularItem: {
+    margin: "20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+export const borderLinearStyle = (theme) => ({
+  root: {
+    height: 10,
+    borderRadius: 5,
+  },
+  colorPrimary: {
+    backgroundColor:
+      theme.palette.grey[theme.palette.type === "light" ? 200 : 700],
+  },
+  bar: {
+    borderRadius: 5,
+    backgroundColor: "#1a90ff",
+  },
+});
+
+export const colorButtonStyle = (theme) => ({
+  root: {
+    color: theme.palette.getContrastText(orange[800]),
+    backgroundColor: orange[800],
+    "&:hover": {
+      backgroundColor: orange[900],
+    },
+  },
+});
+
+export const tableCellStyle = (theme) => ({
+  head: {
+    backgroundColor: "#4dad5b",
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+});
+
+export const tableRowStyle = (theme) => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
 });

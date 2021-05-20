@@ -88,10 +88,11 @@ const Characters = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.container_main}>
           <Paper className={classes.paper_main}>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}> */}
+              <Grid item xs>
                 <Paper className={classes.paper}>
                   <div>
                     <div>
@@ -179,7 +180,8 @@ const Characters = () => {
                   </div>
                 </Paper>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}> */}
+              <Grid item xs>
                 <Card className={classes.paper}>
                   {Object.entries(pokemonDetail).length > 0 && (
                     <>
@@ -204,84 +206,88 @@ const Characters = () => {
                           }
                         />
                       </CardMedia>
-                      <CardContent>
-                        <div className={classes.abilities_container}>
-                          <Typography className={classes.title_abilities}>
-                            Stats
-                          </Typography>
-                        </div>
-                        <Grid container spacing={3}>
-                          {Object.entries(pokemonDetail).length > 0 &&
-                            pokemonDetail.stats.map((stat) => {
-                              return (
-                                <Grid item xs={12} sm={6}>
-                                  <Paper className={classes.paper}>
-                                    <div>
-                                      <div className={classes.root}>
-                                        <Typography
-                                          className={classes.subtitle_stat}
-                                        >
-                                          {stat.stat.name}
-                                        </Typography>
-
-                                        <BorderLinearProgress
-                                          variant="determinate"
-                                          value={stat.base_stat}
-                                        />
-                                      </div>
-                                    </div>
-                                  </Paper>
-                                </Grid>
-                              );
-                            })}
-                        </Grid>
-                        <div className={classes.abilities_container}>
-                          <Typography className={classes.title_abilities}>
-                            Abilities
-                          </Typography>
-                        </div>
-                        <Grid container spacing={3}>
-                          {Object.entries(pokemonDetail).length > 0 &&
-                            pokemonDetail.abilities.map((ability) => {
-                              return (
-                                <Grid item xs={12} sm={6}>
-                                  <div>
-                                    <div className={classes.root}>
-                                      <Chip
-                                        //   icon={<FaceIcon />}
-                                        key={ability.name}
-                                        label={ability.ability.name}
-                                        clickable
-                                        color="primary"
-                                        //   onDelete={handleDelete}
-                                        //   deleteIcon={<DoneIcon />}
-                                      />
-                                    </div>
-                                  </div>
-                                </Grid>
-                              );
-                            })}
-                        </Grid>
-                        <br />
-                        <Grid container spacing={3}>
-                          <Grid item xs={12} sm={6}>
-                            <Paper className={classes.paper}>
-                              <Typography className={classes.title_abilities}>
-                                Weight
-                              </Typography>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Paper className={classes.paper}>
-                              <Typography className={classes.subtitle_stat}>
-                                {`${pokemonDetail.weight} Lbs`}
-                              </Typography>
-                            </Paper>
-                          </Grid>
-                        </Grid>
-                      </CardContent>
                     </>
                   )}
+                </Card>
+              </Grid>
+              <Grid item xs className={classes.content_get_out}>
+                <Card className={classes.paper}>
+                  <CardContent>
+                    <div className={classes.abilities_container}>
+                      <Typography className={classes.title_abilities}>
+                        Stats
+                      </Typography>
+                    </div>
+                    <Grid container spacing={3}>
+                      {Object.entries(pokemonDetail).length > 0 &&
+                        pokemonDetail.stats.map((stat) => {
+                          return (
+                            <Grid item xs={12} sm={6}>
+                              <Paper className={classes.paper}>
+                                <div>
+                                  <div className={classes.root}>
+                                    <Typography
+                                      className={classes.subtitle_stat}
+                                    >
+                                      {stat.stat.name}
+                                    </Typography>
+
+                                    <BorderLinearProgress
+                                      variant="determinate"
+                                      value={stat.base_stat}
+                                    />
+                                  </div>
+                                </div>
+                              </Paper>
+                            </Grid>
+                          );
+                        })}
+                    </Grid>
+                    <div className={classes.abilities_container}>
+                      <Typography className={classes.title_abilities}>
+                        Abilities
+                      </Typography>
+                    </div>
+                    <Grid container spacing={3}>
+                      {Object.entries(pokemonDetail).length > 0 &&
+                        pokemonDetail.abilities.map((ability) => {
+                          return (
+                            <Grid item xs={12} sm={6}>
+                              <div>
+                                <div className={classes.root}>
+                                  <Chip
+                                    //   icon={<FaceIcon />}
+                                    key={ability.name}
+                                    label={ability.ability.name}
+                                    clickable
+                                    color="primary"
+                                    //   onDelete={handleDelete}
+                                    //   deleteIcon={<DoneIcon />}
+                                  />
+                                </div>
+                              </div>
+                            </Grid>
+                          );
+                        })}
+                    </Grid>
+                    <br />
+                    <Grid container spacing={3}>
+                      <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                          <Typography className={classes.title_abilities}>
+                            Weight
+                          </Typography>
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                          <Typography className={classes.subtitle_stat}>
+                            {`${pokemonDetail.weight} Lbs`}
+                          </Typography>
+                        </Paper>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
                 </Card>
               </Grid>
             </Grid>
