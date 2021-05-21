@@ -167,16 +167,18 @@ const Types = () => {
                           )}
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                          <ColorButton
-                            color="primary"
-                            size="small"
-                            variant="contained"
-                            onClick={() => {
-                              onNext();
-                            }}
-                          >
-                            Next
-                          </ColorButton>
+                          {next !== null && (
+                            <ColorButton
+                              color="primary"
+                              size="small"
+                              variant="contained"
+                              onClick={() => {
+                                onNext();
+                              }}
+                            >
+                              Next
+                            </ColorButton>
+                          )}
                         </Grid>
                       </Grid>
                     </div>
@@ -185,87 +187,247 @@ const Types = () => {
               </Grid>
               {/* <Grid item xs={12} sm={6}> */}
               <Grid item xs>
-                <Card className={classes.paper}>
-                  <CardHeader
-                    classes={{
-                      title: classes.card_header_style,
-                      subheader: classes.card_subHeader_style,
-                    }}
-                    title={`aefaefae`}
-                    subheader={`afweaefae`}
-                  />
-                  <CardMedia className={classes.media} title={`aefafeafaf`}>
-                    {"hdhahsd"}
-                  </CardMedia>
-                </Card>
-              </Grid>
-              <Grid item xs className={classes.content_get_out}>
-                <Card className={classes.paper}>
-                  <CardContent>
-                    <div className={classes.abilities_container}>
-                      <Typography className={classes.title_abilities}>
-                        Stats
-                      </Typography>
+                <Paper className={classes.paper}>
+                  <div>
+                    <div>
+                      <Typography className={classes.title}>Attacks</Typography>
                     </div>
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                          <div>
-                            <div className={classes.root}>
-                              <Typography className={classes.subtitle_stat}>
-                                {"stat"}
-                              </Typography>
-
-                              <BorderLinearProgress
-                                variant="determinate"
-                                // value={stat.base_stat}
-                              />
-                            </div>
-                          </div>
-                        </Paper>
-                      </Grid>
-                    </Grid>
-                    <div className={classes.abilities_container}>
-                      <Typography className={classes.title_abilities}>
-                        Abilities
-                      </Typography>
-                    </div>
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} sm={6}>
-                        <div>
-                          <div className={classes.root}>
-                            <Chip
-                              //   icon={<FaceIcon />}
-                              key={""}
-                              label={"ability"}
-                              clickable
-                              color="primary"
-                              //   onDelete={handleDelete}
-                              //   deleteIcon={<DoneIcon />}
-                            />
-                          </div>
-                        </div>
-                      </Grid>
-                    </Grid>
-                    <br />
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                          <Typography className={classes.title_abilities}>
-                            Weight
-                          </Typography>
-                        </Paper>
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
+                  </div>
+                  <div className={classes.abilities_container}>
+                    <Typography className={classes.title_abilities}>
+                      Double damage to Pokémon of type:
+                    </Typography>
+                  </div>
+                  <Grid container spacing={3}>
+                    {Object.entries(typeDetail).length > 0 &&
+                      (typeDetail.damage_relations.double_damage_to.length >
+                      0 ? (
+                        typeDetail.damage_relations.double_damage_to.map(
+                          (type) => {
+                            return (
+                              <Grid item xs>
+                                <div>
+                                  <div className={classes.root}>
+                                    <Chip
+                                      //   icon={<FaceIcon />}
+                                      key={type.url}
+                                      label={type.name}
+                                      clickable
+                                      color="secondary"
+                                      //   onDelete={handleDelete}
+                                      //   deleteIcon={<DoneIcon />}
+                                    />
+                                  </div>
+                                </div>
+                              </Grid>
+                            );
+                          }
+                        )
+                      ) : (
+                        <Grid item xs>
                           <Typography className={classes.subtitle_stat}>
-                            {` Lbs`}
+                            No types...
                           </Typography>
-                        </Paper>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
+                        </Grid>
+                      ))}
+                  </Grid>
+                  <div className={classes.abilities_container}>
+                    <Typography className={classes.title_abilities}>
+                      Half damage to Pokémon of type:
+                    </Typography>
+                  </div>
+                  <Grid container spacing={3}>
+                    {Object.entries(typeDetail).length > 0 &&
+                      (typeDetail.damage_relations.half_damage_to.length > 0 ? (
+                        typeDetail.damage_relations.half_damage_to.map(
+                          (type) => {
+                            return (
+                              <Grid item xs>
+                                <div>
+                                  <div className={classes.root}>
+                                    <Chip
+                                      //   icon={<FaceIcon />}
+                                      key={type.url}
+                                      label={type.name}
+                                      clickable
+                                      color="primary"
+                                      //   onDelete={handleDelete}
+                                      //   deleteIcon={<DoneIcon />}
+                                    />
+                                  </div>
+                                </div>
+                              </Grid>
+                            );
+                          }
+                        )
+                      ) : (
+                        <Grid item xs>
+                          <Typography className={classes.subtitle_stat}>
+                            No types...
+                          </Typography>
+                        </Grid>
+                      ))}
+                  </Grid>
+                  <div className={classes.abilities_container}>
+                    <Typography className={classes.title_abilities}>
+                      No damage to Pokémon of type:
+                    </Typography>
+                  </div>
+                  <Grid container spacing={3}>
+                    {Object.entries(typeDetail).length > 0 &&
+                      (typeDetail.damage_relations.no_damage_to.length > 0 ? (
+                        typeDetail.damage_relations.no_damage_to.map((type) => {
+                          return (
+                            <Grid item xs>
+                              <div>
+                                <div className={classes.root}>
+                                  <Chip
+                                    //   icon={<FaceIcon />}
+                                    key={type.url}
+                                    label={type.name}
+                                    clickable
+                                    // color="primary"
+                                    //   onDelete={handleDelete}
+                                    //   deleteIcon={<DoneIcon />}
+                                  />
+                                </div>
+                              </div>
+                            </Grid>
+                          );
+                        })
+                      ) : (
+                        <Grid item xs>
+                          <Typography className={classes.subtitle_stat}>
+                            No types...
+                          </Typography>
+                        </Grid>
+                      ))}
+                  </Grid>
+                </Paper>
+              </Grid>
+              <Grid item xs>
+                <Paper className={classes.paper}>
+                  <div>
+                    <div>
+                      <Typography className={classes.title}>
+                        Defenses
+                      </Typography>
+                    </div>
+                  </div>
+                  <div className={classes.abilities_container}>
+                    <Typography className={classes.title_abilities}>
+                      Double damage from Pokémon of type:
+                    </Typography>
+                  </div>
+                  <Grid container spacing={3}>
+                    {Object.entries(typeDetail).length > 0 &&
+                      (typeDetail.damage_relations.double_damage_from.length >
+                      0 ? (
+                        typeDetail.damage_relations.double_damage_from.map(
+                          (type) => {
+                            return (
+                              <Grid item xs>
+                                <div>
+                                  <div className={classes.root}>
+                                    <Chip
+                                      //   icon={<FaceIcon />}
+                                      key={type.url}
+                                      label={type.name}
+                                      clickable
+                                      color="secondary"
+                                      //   onDelete={handleDelete}
+                                      //   deleteIcon={<DoneIcon />}
+                                    />
+                                  </div>
+                                </div>
+                              </Grid>
+                            );
+                          }
+                        )
+                      ) : (
+                        <Grid item xs>
+                          <Typography className={classes.subtitle_stat}>
+                            No types...
+                          </Typography>
+                        </Grid>
+                      ))}
+                  </Grid>
+                  <div className={classes.abilities_container}>
+                    <Typography className={classes.title_abilities}>
+                      Half damage from Pokémon of type:
+                    </Typography>
+                  </div>
+                  <Grid container spacing={3}>
+                    {Object.entries(typeDetail).length > 0 &&
+                      (typeDetail.damage_relations.half_damage_from.length >
+                      0 ? (
+                        typeDetail.damage_relations.half_damage_from.map(
+                          (type) => {
+                            return (
+                              <Grid item xs>
+                                <div>
+                                  <div className={classes.root}>
+                                    <Chip
+                                      //   icon={<FaceIcon />}
+                                      key={type.url}
+                                      label={type.name}
+                                      clickable
+                                      color="primary"
+                                      //   onDelete={handleDelete}
+                                      //   deleteIcon={<DoneIcon />}
+                                    />
+                                  </div>
+                                </div>
+                              </Grid>
+                            );
+                          }
+                        )
+                      ) : (
+                        <Grid item xs>
+                          <Typography className={classes.subtitle_stat}>
+                            No types...
+                          </Typography>
+                        </Grid>
+                      ))}
+                  </Grid>
+                  <div className={classes.abilities_container}>
+                    <Typography className={classes.title_abilities}>
+                      No damage from Pokémon of type:
+                    </Typography>
+                  </div>
+                  <Grid container spacing={3}>
+                    {Object.entries(typeDetail).length > 0 &&
+                      (typeDetail.damage_relations.no_damage_from.length > 0 ? (
+                        typeDetail.damage_relations.no_damage_from.map(
+                          (type) => {
+                            return (
+                              <Grid item xs>
+                                <div>
+                                  <div className={classes.root}>
+                                    <Chip
+                                      //   icon={<FaceIcon />}
+                                      key={type.url}
+                                      label={type.name}
+                                      clickable
+                                      // color="primary"
+                                      //   onDelete={handleDelete}
+                                      //   deleteIcon={<DoneIcon />}
+                                    />
+                                  </div>
+                                </div>
+                              </Grid>
+                            );
+                          }
+                        )
+                      ) : (
+                        <Grid item xs>
+                          <Typography className={classes.subtitle_stat}>
+                            No types...
+                          </Typography>
+                        </Grid>
+                      ))}
+                  </Grid>
+                </Paper>
               </Grid>
             </Grid>
           </Paper>

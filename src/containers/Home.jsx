@@ -89,7 +89,7 @@ const Home = () => {
         >
           <LinkTab label="Pokemons" href="/pokemon" {...a11yProps(0)} />
           <LinkTab label="Types" href="/types" {...a11yProps(1)} />
-          <LinkTab label="Abilities" href="/abilities" {...a11yProps(2)} />
+          {/* <LinkTab label="Abilities" href="/abilities" {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -102,9 +102,9 @@ const Home = () => {
           <Types />
         </TypePokemonContextProvider>
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      {/* <TabPanel value={value} index={2}>
         Movies
-      </TabPanel>
+      </TabPanel> */}
     </div>
   );
 };

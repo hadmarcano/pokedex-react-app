@@ -18,7 +18,11 @@ const TypePokemonContextProvider = ({ children }) => {
     if (currentQType.length > 0) {
       fetch(getTypeDetailByType(type))
         .then((res) => res.json())
-        .then((data) => console.log(data))
+        .then((data) => {
+          setDoneFetchTypes(true);
+          console.log(data);
+          setTypeDetail(data);
+        })
         .catch((error) => console.log(error));
     }
   };

@@ -29,11 +29,11 @@ export const mainStyles = (theme) => ({
   //     width: "auto",
   //   },
   // },
-  "@media (max-width: 780px)": {
-    content_get_out: {
-      display: "none",
-    },
-  },
+  // "@media (max-width: 780px)": {
+  //   content_get_out: {
+  //     display: "none",
+  //   },
+  // },
   paper_abilities: {
     padding: theme.spacing(2),
     textAlign: "center",

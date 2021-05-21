@@ -6,7 +6,7 @@ const query_pokemons = `pokemon/?limit=6`;
 // Pokemon by name
 const query_pokemon = `pokemon`;
 // All type of pokemons
-const query_types = `type?limit=6`;
+const query_types = `type?limit=5`;
 // Type by pokemon
 const query_type = `type`;
 //Abilities

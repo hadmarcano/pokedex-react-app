@@ -10,6 +10,8 @@ function App() {
       <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
+          {/* <Route exact path="/grid" component={Grid} /> */}
+          {/* <Route exact path="/favorites" component={Favorites} /> */}
           <Route path="/" component={NotFound} />
         </Switch>
       </Layout>
