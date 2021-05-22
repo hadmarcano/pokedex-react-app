@@ -1,15 +1,21 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getTypeOfPokemons, getTypeDetailByType } from "../constants";
+import {
+  getTypeOfPokemons,
+  getTypeDetailByType,
+  getPokemonByName,
+} from "../constants";
 
 export const TypesContext = createContext();
 
 const TypePokemonContextProvider = ({ children }) => {
   const [doneFetchTypes, setDoneFetchTypes] = useState(false);
   const [typeDetail, setTypeDetail] = useState({});
+  const [pokemonsByTypes, setPokemonsByTypes] = useState([]);
   const [currentQType, setCurrentQType] = useState("");
 
   //Life Cycle
   useEffect(() => {
+    setPokemonsByTypes([]);
     getTypeDetails(currentQType);
   }, [currentQType]);
 
@@ -20,11 +26,23 @@ const TypePokemonContextProvider = ({ children }) => {
         .then((res) => res.json())
         .then((data) => {
           setDoneFetchTypes(true);
-          console.log(data);
+          console.log(data.pokemon);
           setTypeDetail(data);
+          createPokemonObject(data.pokemon);
+          console.log(pokemonsByTypes);
         })
         .catch((error) => console.log(error));
     }
+  };
+
+  const createPokemonObject = (arrayPokemon) => {
+    arrayPokemon.forEach((pokemon) => {
+      fetch(getPokemonByName(pokemon.pokemon.name))
+        .then((res) => res.json())
+        .then((data) =>
+          setPokemonsByTypes((currentList) => [...currentList, data])
+        );
+    });
   };
 
   const changeCurrentQType = (type) => {
@@ -35,6 +53,10 @@ const TypePokemonContextProvider = ({ children }) => {
     setDoneFetchTypes(state);
   };
 
+  const changePokemonsByTypes = (state) => {
+    setPokemonsByTypes(state);
+  };
+
   return (
     <TypesContext.Provider
       value={{
@@ -43,6 +65,8 @@ const TypePokemonContextProvider = ({ children }) => {
         typeDetail,
         doneFetchTypes,
         changeDoneFetchTypes,
+        pokemonsByTypes,
+        changePokemonsByTypes,
       }}
     >
       {children}

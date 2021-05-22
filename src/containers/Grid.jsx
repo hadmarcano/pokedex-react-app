@@ -1,17 +1,18 @@
 import React from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import Image404 from "../assets/images/404poke.jpg";
+import { Link } from "react-router-dom";
+import PokemonGrid from "../components/PokemonGrid";
+import Types from "../components/Types";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import PropTypes from "prop-types";
 
-import { mainStyles } from "../styles/components/pokemonGrid";
+//Contexts
+// import PokemonContextProvider from "../context/CharacterContext";
+// import TypePokemonContextProvider from "../context/TypesContext";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,11 +59,15 @@ function LinkTab(props) {
   );
 }
 
-// STYLES
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
-const useStyles = makeStyles(mainStyles);
-
-const NotFound = () => {
+const Grid = () => {
+  const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -72,7 +77,7 @@ const NotFound = () => {
   const AppBarColor = {
     background: "#202020",
   };
-  const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <AppBar position="static" style={AppBarColor}>
@@ -82,25 +87,15 @@ const NotFound = () => {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Tournaments" href="/tournaments" {...a11yProps(0)} />
+          <LinkTab label="Favorites" href="/favorites" {...a11yProps(0)} />
           {/* <LinkTab label="Favorites" href="/favorites" {...a11yProps(1)} /> */}
           {/* <LinkTab label="Abilities" href="/abilities" {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} className={classes.container_main}>
-            <Paper className={classes.paper_main}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Card>
-                    <img src={Image404} alt={"404-image"} />
-                  </Card>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-        </Grid>
+        {/* <PokemonContextProvider> */}
+        <PokemonGrid />
+        {/* </PokemonContextProvider> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {/* <TypePokemonContextProvider> */}
@@ -114,4 +109,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default Grid;

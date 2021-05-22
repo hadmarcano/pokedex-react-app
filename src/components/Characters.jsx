@@ -222,7 +222,7 @@ const Characters = () => {
                       {Object.entries(pokemonDetail).length > 0 &&
                         pokemonDetail.stats.map((stat) => {
                           return (
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} key={stat.stat.name}>
                               <Paper className={classes.paper}>
                                 <div>
                                   <div className={classes.root}>

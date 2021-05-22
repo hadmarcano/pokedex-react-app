@@ -3,10 +3,6 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Chip from "@material-ui/core/Chip";
@@ -17,6 +13,12 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import IconButton from "@material-ui/core/IconButton";
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 //CONSTANTS & CONTEXTS
 import { getTypeOfPokemons } from "../constants/index";
 import { TypesContext } from "../context/TypesContext";
@@ -48,6 +50,7 @@ const Types = () => {
     typeDetail,
     doneFetchTypes,
     changeDoneFetchTypes,
+    pokemonsByTypes,
   } = useContext(TypesContext);
   const [loader, setLoader] = useState(getTypeOfPokemons());
   const [prev, setPrev] = useState("");
@@ -100,7 +103,7 @@ const Types = () => {
                   <div>
                     <div>
                       <Typography className={classes.title}>
-                        Types of Pókemon!
+                        Click on View and scroll down!
                       </Typography>
                     </div>
                     <br />
@@ -186,7 +189,7 @@ const Types = () => {
                 </Paper>
               </Grid>
               {/* <Grid item xs={12} sm={6}> */}
-              <Grid item xs>
+              <Grid item xs className={classes.content_get_out}>
                 <Paper className={classes.paper}>
                   <div>
                     <div>
@@ -305,7 +308,7 @@ const Types = () => {
                   </Grid>
                 </Paper>
               </Grid>
-              <Grid item xs>
+              <Grid item xs className={classes.content_get_out}>
                 <Paper className={classes.paper}>
                   <div>
                     <div>
@@ -430,6 +433,44 @@ const Types = () => {
                 </Paper>
               </Grid>
             </Grid>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} className={classes.container_main}>
+          <Paper className={classes.paper_main}>
+            <ListSubheader component="div" className={classes.sub_title_list}>
+              <Typography className={classes.sub_title_list}>
+                {currentQType}
+              </Typography>
+            </ListSubheader>
+            <div className={classes.rootList}>
+              <GridList className={classes.gridList} cols={4}>
+                {pokemonsByTypes.map((tile) => (
+                  <GridListTile key={tile.id}>
+                    <img
+                      src={tile.sprites.other["official-artwork"].front_default}
+                      alt={tile.name}
+                      width={"auto"}
+                      height={"auto"}
+                    />
+                    <GridListTileBar
+                      title={tile.name}
+                      classes={{
+                        root: classes.titleBar,
+                        title: classes.titleList,
+                        footImage: classes.footImage,
+                      }}
+                      // actionIcon={
+                      //   <IconButton aria-label={`star ${tile.name}`}>
+                      //     <RemoveRedEyeOutlinedIcon
+                      //       className={classes.titleList}
+                      //     />
+                      //   </IconButton>
+                      // }
+                    />
+                  </GridListTile>
+                ))}
+              </GridList>
+            </div>
           </Paper>
         </Grid>
       </Grid>

@@ -1,21 +1,26 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
-import Layout from "../components/Layout";
 import Home from "../containers/Home";
+import Grid from "../containers/Grid";
+import Layout from "../components/Layout";
 import NotFound from "../components/NotFound";
+import AppContext from "../context/AppContext";
+import useInitialState from "../hooks/useInitialState";
+
 function App() {
+  const initialState = useInitialState();
   return (
-    <BrowserRouter>
+    <AppContext.Provider value={initialState}>
       <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
-          {/* <Route exact path="/grid" component={Grid} /> */}
-          {/* <Route exact path="/favorites" component={Favorites} /> */}
+          <Route exact path="/favorites" component={Grid} />
+          {/* <Route exact path="/tournaments" component={Tournaments} /> */}
           <Route path="/" component={NotFound} />
         </Switch>
       </Layout>
-    </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 
